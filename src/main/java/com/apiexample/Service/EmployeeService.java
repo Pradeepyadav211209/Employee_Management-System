@@ -3,8 +3,11 @@ package com.apiexample.Service;
 import com.apiexample.Dto.EmployeeChangeDto;
 import com.apiexample.Dto.EmployeeDto;
 import com.apiexample.Entity.Employee;
+import com.apiexample.Entity.EmployeeData;
 import com.apiexample.GlobalExceptionHandler.ResourceNotFoundExceptions;
+import com.apiexample.Repository.EmployeeDataRepository;
 import com.apiexample.Repository.EmployeeRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,5 +75,12 @@ public class EmployeeService {
         Employee saved = employeeRepository.save(employee);
         BeanUtils.copyProperties(saved,employeeDto);
         return employeeDto;
+    }
+
+    @Autowired
+    EmployeeDataRepository employeeDataRepository;
+    public void createEmpData(EmployeeData employeeData) {
+        employeeDataRepository.save(employeeData);
+
     }
 }
