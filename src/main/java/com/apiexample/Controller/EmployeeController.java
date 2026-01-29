@@ -5,9 +5,11 @@ import com.apiexample.Dto.EmployeeChangeDto;
 import com.apiexample.Dto.EmployeeDto;
 import com.apiexample.Entity.Employee;
 import com.apiexample.Service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +25,19 @@ public class EmployeeController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<ApiResponce> createEmp(@RequestBody Employee emp) {
-        String status = employeeService.createEmployee(emp);
+    public ResponseEntity<ApiResponce> createEmp(
+          @Valid @RequestBody Employee emp,
+          BindingResult result
+    ) {
         ApiResponce<String> responce = new ApiResponce();
+        if(result.hasErrors()){
+            responce.setMsg("Invalid Input");
+            responce.setData(result.getFieldError().getDefaultMessage());
+            responce.setStatus(500);
+            return new ResponseEntity<>(responce, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String status = employeeService.createEmployee(emp);
+
         if (status.equals("Done")) {
             responce.setMsg("Transaction Completed");
             responce.setData("Done");
