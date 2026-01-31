@@ -1,6 +1,7 @@
 package com.apiexample.Controller;
 
 import com.apiexample.Dto.ApiResponce;
+import com.apiexample.Dto.EmployeeDataDto;
 import com.apiexample.Entity.EmployeeData;
 import com.apiexample.Service.EmployeeService;
 import jakarta.validation.Valid;
@@ -8,10 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v2/employee")
@@ -41,4 +41,15 @@ public class EmployeeDataController {
         return new ResponseEntity<>(responce, HttpStatus.OK);
 
     }
+
+    //http://localhost:8080/api/v2/employee/AllEmployee
+    @GetMapping("/AllEmployee")
+public ResponseEntity<ApiResponce<List<EmployeeData>>> EmployeeData(){
+    List<EmployeeData> emp = employeeService.getEmployeeDataById();
+    ApiResponce<List<EmployeeData>> responce= new ApiResponce<>();
+    responce.setMsg("Print Data");
+    responce.setData(emp);
+    responce.setStatus(200);
+    return new ResponseEntity<>(responce,HttpStatus.OK);
+}
 }

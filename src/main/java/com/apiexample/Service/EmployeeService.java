@@ -83,4 +83,10 @@ public class EmployeeService {
         employeeDataRepository.save(employeeData);
 
     }
+
+    public List<EmployeeData> getEmployeeDataById() {
+        List<EmployeeData> employeeData = employeeDataRepository.findAll();
+        return employeeData;
+    }
+
 }
