@@ -1,29 +1,17 @@
-package com.apiexample.Entity;
+package com.apiexample.Dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.util.Date;
 
-@Entity
-public class EmployeeData {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EmpId")
+public class EmployeeDataDto {
     private long id;
-
-    @PastOrPresent(message = "Enter your Joining Date")
-    @Column(name = "Joining-Date")
     private Date date;
-
-
-    @Column(name = "Department")
     private String department;
-
-
-    @Column(name = "Team")
     private String team;
 
     public long getId() {
