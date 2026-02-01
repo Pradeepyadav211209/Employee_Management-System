@@ -52,4 +52,17 @@ public ResponseEntity<ApiResponce<List<EmployeeData>>> EmployeeData(){
     responce.setStatus(200);
     return new ResponseEntity<>(responce,HttpStatus.OK);
 }
+
+    //localhost:8080/api/v2/employee/delete?id=1
+    @DeleteMapping("/delete")
+public ResponseEntity<ApiResponce> deleteData(
+       @RequestParam long id
+){
+        employeeService.delteDataById(id);
+        ApiResponce<String> responce = new ApiResponce<>();
+        responce.setMsg("Transition comeplete");
+        responce.setData("Deleted");
+        responce.setStatus(200);
+        return new ResponseEntity<>(responce,HttpStatus.OK);
+}
 }
