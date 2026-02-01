@@ -89,4 +89,7 @@ public class EmployeeService {
         return employeeData;
     }
 
+    public void delteDataById(long id) {
+        employeeDataRepository.deleteById(id);
+    }
 }
