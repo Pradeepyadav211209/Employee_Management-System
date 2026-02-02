@@ -7,13 +7,14 @@ import com.apiexample.Entity.EmployeeData;
 import com.apiexample.GlobalExceptionHandler.ResourceNotFoundExceptions;
 import com.apiexample.Repository.EmployeeDataRepository;
 import com.apiexample.Repository.EmployeeRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -42,9 +43,11 @@ public class EmployeeService {
        return employeeDto;
     }
 
-    public List<Employee> getAllEmp() {
-        List<Employee> emp = employeeRepository.findAll();
-        return emp;
+    public List<Employee> getAllEmp(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Employee> emp = employeeRepository.findAll(pageable);
+        List<Employee> content = emp.getContent();
+        return content;
     }
 
     public Employee findById(long id) {
