@@ -78,10 +78,13 @@ public class EmployeeController {
         return new ResponseEntity<>(responce, HttpStatus.OK);
     }
 
-    //localhost:8080/api/v1/Employee/All
+    //localhost:8080/api/v1/Employee/All?pageNo=0&pageSize=5
     @GetMapping("/All")
-    public ResponseEntity<ApiResponce<List<Employee>>> getAllEmployee() {
-        List<Employee> employee = employeeService.getAllEmp();
+    public ResponseEntity<ApiResponce<List<Employee>>> getAllEmployee(
+           @RequestParam(name = "pageNo",defaultValue = "0",required = false) int pageNo,
+           @RequestParam(name = "pageSize",defaultValue = "4",required = false) int pageSize
+    ) {
+        List<Employee> employee = employeeService.getAllEmp(pageNo,pageSize);
         ApiResponce<List<Employee>> responce = new ApiResponce();
         responce.setMsg("Transaction Completed");
         responce.setData(employee);
