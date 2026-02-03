@@ -82,9 +82,12 @@ public class EmployeeController {
     @GetMapping("/All")
     public ResponseEntity<ApiResponce<List<Employee>>> getAllEmployee(
            @RequestParam(name = "pageNo",defaultValue = "0",required = false) int pageNo,
-           @RequestParam(name = "pageSize",defaultValue = "4",required = false) int pageSize
+           @RequestParam(name = "pageSize",defaultValue = "5",required = false) int pageSize,
+           @RequestParam(name = "sortBy",defaultValue = "id",required = false) String sortBy,
+           @RequestParam(name = "sortDir",defaultValue = "id",required = false) String sortDir
+
     ) {
-        List<Employee> employee = employeeService.getAllEmp(pageNo,pageSize);
+        List<Employee> employee = employeeService.getAllEmp(pageNo,pageSize,sortBy,sortDir);
         ApiResponce<List<Employee>> responce = new ApiResponce();
         responce.setMsg("Transaction Completed");
         responce.setData(employee);
